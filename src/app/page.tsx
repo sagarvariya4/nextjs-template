@@ -1,10 +1,11 @@
-import { getTranslations } from 'next-intl/server';
 import Image from 'next/image';
+import { getTranslations } from 'next-intl/server';
+
 import { Counter } from '@/components/counter';
 import { LocaleSwitcher } from '@/components/locale/switcher';
 import { PushNotification } from '@/components/notification/push';
 import { InstallPrompt } from '@/components/pwa/install-prompt';
-import { ThemeSwitcher } from '@/components/theme/switcher';
+import { ThemeDropdown } from '@/components/theme/theme-dropdown';
 
 export default async function Home() {
 	const t = await getTranslations('Home');
@@ -19,7 +20,7 @@ export default async function Home() {
 				</div>
 				<div className="flex gap-2">
 					<LocaleSwitcher />
-					<ThemeSwitcher />
+					<ThemeDropdown />
 				</div>
 			</div>
 			<div className="grid min-h-screen grid-rows-[20px_1fr_20px] items-center justify-items-center gap-16 p-8 pb-20 font-sans sm:p-20">

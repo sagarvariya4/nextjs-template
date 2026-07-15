@@ -1,6 +1,6 @@
+import type { NextConfig } from 'next';
 import withSerwistInit from '@serwist/next';
 import createNextIntlPlugin from 'next-intl/plugin';
-import type { NextConfig } from 'next';
 
 const nextConfig: NextConfig = {};
 

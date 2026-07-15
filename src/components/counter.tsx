@@ -1,6 +1,9 @@
 'use client';
 
-import { Button } from '@/components/ui/button';
+import { useCounterStore } from '@/store/useCounterStore';
+
+import { cn } from '@/lib/utils';
+import { Button, buttonVariants } from '@/components/ui/button';
 import {
 	Dialog,
 	DialogContent,
@@ -9,15 +12,20 @@ import {
 	DialogTitle,
 	DialogTrigger,
 } from '@/components/ui/dialog';
-import { useCounterStore } from '@/store/useCounterStore';
 
 export function Counter() {
 	const { counter, increment, decrement, reset } = useCounterStore();
 
 	return (
 		<Dialog>
-			<DialogTrigger asChild>
-				<Button variant="outline">Open Counter</Button>
+			<DialogTrigger
+				className={cn(
+					buttonVariants({
+						variant: 'outline',
+					}),
+				)}
+			>
+				Open Counter
 			</DialogTrigger>
 
 			<DialogContent>

@@ -1,9 +1,11 @@
 'use client';
 
-import { ShareIcon, SquarePlusIcon } from 'lucide-react';
 import { useEffect, useState } from 'react';
+import { ShareIcon, SquarePlusIcon } from 'lucide-react';
 import { toast } from 'sonner';
-import { Button } from '@/components/ui/button';
+
+import { cn } from '@/lib/utils';
+import { Button, buttonVariants } from '@/components/ui/button';
 import {
 	Dialog,
 	DialogContent,
@@ -31,6 +33,7 @@ export function InstallPrompt() {
 			/Safari/.test(userAgent) &&
 			!/Chrome|Chromium|CriOS|FxiOS|EdgiOS|Edg|OPR|Opera/.test(userAgent);
 
+		// eslint-disable-next-line react-hooks/set-state-in-effect
 		setIsSafari(isSafariBrowser);
 
 		const isInStandaloneMode =
@@ -88,8 +91,14 @@ export function InstallPrompt() {
 					open={open}
 					onOpenChange={setOpen}
 				>
-					<DialogTrigger asChild>
-						<Button variant="outline">Install</Button>
+					<DialogTrigger
+						className={cn(
+							buttonVariants({
+								variant: 'outline',
+							}),
+						)}
+					>
+						Install
 					</DialogTrigger>
 
 					<DialogContent>

@@ -1,8 +1,11 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import { requestNotificationPermission } from '@/permissions/notifications';
 import { toast } from 'sonner';
-import { Button } from '@/components/ui/button';
+
+import { cn } from '@/lib/utils';
+import { Button, buttonVariants } from '@/components/ui/button';
 import {
 	Dialog,
 	DialogContent,
@@ -12,7 +15,6 @@ import {
 	DialogTrigger,
 } from '@/components/ui/dialog';
 import { Input } from '@/components/ui/input';
-import { requestNotificationPermission } from '@/permissions/notifications';
 
 export function PushNotification() {
 	const [count, setCount] = useState(0);
@@ -89,8 +91,14 @@ export function PushNotification() {
 
 	return (
 		<Dialog>
-			<DialogTrigger asChild>
-				<Button variant="outline">Manage Notifications</Button>
+			<DialogTrigger
+				className={cn(
+					buttonVariants({
+						variant: 'outline',
+					}),
+				)}
+			>
+				Manage Notifications
 			</DialogTrigger>
 
 			<DialogContent>

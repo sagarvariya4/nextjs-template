@@ -1,17 +1,18 @@
 'use client';
 
+import { useMemo, useTransition } from 'react';
+import { setUserLocale } from '@/actions/locale';
+import { Locale, locales } from '@/i18n/config';
 import { LanguagesIcon } from 'lucide-react';
 import { useLocale, useTranslations } from 'next-intl';
-import { useMemo, useTransition } from 'react';
+
+import { cn } from '@/lib/utils';
 import {
 	Select,
 	SelectContent,
 	SelectItem,
 	SelectTrigger,
 } from '@/components/ui/select';
-import { cn } from '@/lib/utils';
-import { setUserLocale } from '@/actions/locale';
-import { Locale, locales } from '@/i18n/config';
 
 interface Props {
 	className?: string;
@@ -43,7 +44,9 @@ export function LocaleSwitcher({ className }: Props) {
 	return (
 		<Select
 			defaultValue={locale}
-			onValueChange={onChange}
+			onValueChange={(val) => {
+				if (val) onChange(val);
+			}}
 		>
 			<SelectTrigger
 				disabled={isPending}
@@ -54,7 +57,6 @@ export function LocaleSwitcher({ className }: Props) {
 			<SelectContent
 				align="end"
 				className="min-w-[8rem] shadow-md"
-				position="popper"
 			>
 				{items.map(({ label, value }) => (
 					<SelectItem

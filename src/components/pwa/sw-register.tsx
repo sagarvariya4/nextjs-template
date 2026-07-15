@@ -1,8 +1,8 @@
 'use client';
 
 import { useEffect } from 'react';
-import { toast } from 'sonner';
 import { getSWRegistration } from '@/pwa/sw-register';
+import { toast } from 'sonner';
 
 interface Props {
 	registerManually?: boolean;
