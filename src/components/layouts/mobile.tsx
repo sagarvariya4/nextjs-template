@@ -41,6 +41,7 @@ function SelectMobileNavName() {
 
 	return (
 		<Combobox
+			autoHighlight
 			items={items}
 			itemToStringValue={(item) => item.label}
 			value={items.find((item) => item.value === navMobileNameName)}
@@ -108,7 +109,9 @@ export function MobileLayoutNormal({ children }: MobileLayoutNormalProps) {
 		<div className="min-h-screen">
 			{/* Top Navigation Bar Header */}
 			<header className="border-secondary sticky top-0 z-50 flex items-center justify-between border-b p-4 shadow-sm">
-				<h1 className="text-lg font-bold tracking-wide">Mobile Dashboard</h1>
+				<h1 className="truncate text-lg font-bold tracking-wide">
+					Mobile Dashboard
+				</h1>
 				<SelectMobileNavName />
 			</header>
 
@@ -243,10 +246,10 @@ export function MobileLayoutAdvanced({
 	}, [api, isMobile, navigate, navigation, pathname, router]);
 
 	return (
-		<div className="flex min-h-screen flex-col justify-between pb-16">
+		<div className="flex min-h-screen flex-col justify-between">
 			{/* Top Navigation Bar Header */}
-			<header className="border-secondary sticky top-0 z-50 flex items-center justify-between border-b p-4 shadow-sm">
-				<h1 className="text-lg font-bold tracking-wide">
+			<header className="border-secondary bg-background sticky top-0 z-50 flex items-center justify-between border-b p-4 shadow-sm">
+				<h1 className="truncate text-lg font-bold tracking-wide">
 					{navigation.find(({ path }) => pathname === path)?.header}
 				</h1>
 				<SelectMobileNavName />
@@ -276,7 +279,7 @@ export function MobileLayoutAdvanced({
 			</main>
 
 			{/* BOTTOM NAVIGATION BAR */}
-			<nav className="border-secondary fixed right-0 bottom-0 left-0 z-50 grid h-16 grid-cols-3 border-t shadow-lg">
+			<nav className="border-secondary bg-background fixed right-0 bottom-0 left-0 z-50 flex h-16 flex-row justify-around border-t shadow-lg">
 				{navigation.map(({ title, icon, path }, index) => {
 					const isActive = pathname === path;
 
@@ -288,7 +291,7 @@ export function MobileLayoutAdvanced({
 								if (isActive) return;
 								navigate(path);
 							}}
-							className={`relative flex h-full w-full flex-col items-center justify-center rounded-none px-0 py-0 text-xs font-semibold ${
+							className={`relative flex size-full flex-1 flex-col items-center justify-center rounded-none px-0 py-0 text-xs font-semibold ${
 								isActive ? 'text-emerald-600' : 'text-gray-400'
 							}`}
 						>
