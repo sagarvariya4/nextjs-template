@@ -110,7 +110,7 @@ export function MobileLayoutNormal({ children }: MobileLayoutNormalProps) {
 							<Button
 								key={path + '-' + index}
 								variant="secondary"
-								onClick={() => navigate('/dashboard/analytics')}
+								onClick={() => navigate(path)}
 								className="flex h-auto w-full justify-start rounded-xl border p-4 text-left font-medium shadow-sm"
 							>
 								{icon}
