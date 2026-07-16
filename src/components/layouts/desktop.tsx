@@ -1,7 +1,8 @@
-// app/dashboard/window-layouts/desktop.tsx
+// app/components/layouts/desktop.tsx
+
 'use client';
 
-import React from 'react';
+import React, { useMemo } from 'react';
 import { usePathname, useRouter } from 'next/navigation';
 
 interface DesktopLayoutProps {
@@ -13,29 +14,47 @@ export function DesktopLayout({ analytics, team }: DesktopLayoutProps) {
 	const router = useRouter();
 	const pathname = usePathname();
 
-	const isAnalyticsActive = pathname === '/dashboard/analytics';
-	const isTeamActive = pathname === '/dashboard/team';
+	const navigation = useMemo(
+		() => [
+			{
+				header: 'Analytics View',
+				title: 'Analytics',
+				icon: '📊',
+				path: '/dashboard/analytics',
+				page: analytics,
+			},
+			{
+				header: 'Team Roster',
+				title: 'Team',
+				icon: '👥',
+				path: '/dashboard/team',
+				page: team,
+			},
+		],
+		[analytics, team],
+	);
 
 	return (
 		<div className="min-h-screen p-6">
 			<h1 className="mb-4 text-2xl font-bold">Desktop Dashboard</h1>
 
 			<div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-				{/* Desktop Analytics Interactive Box */}
-				<div
-					onClick={() => router.push('/dashboard/analytics')}
-					className={`cursor-pointer transition-all ${isAnalyticsActive ? 'scale-100 opacity-100' : 'opacity-80'}`}
-				>
-					{analytics}
-				</div>
+				{navigation.map(({ path, page }, index) => {
+					const isActive = pathname === path;
 
-				{/* Desktop Team Interactive Box */}
-				<div
-					onClick={() => router.push('/dashboard/team')}
-					className={`cursor-pointer transition-all ${isTeamActive ? 'scale-100 opacity-100' : 'opacity-80'}`}
-				>
-					{team}
-				</div>
+					return (
+						<div
+							key={path + '-' + index}
+							onClick={() => {
+								if (isActive) return;
+								router.push(path);
+							}}
+							className={`cursor-pointer transition-all ${isActive ? 'scale-100 opacity-100' : 'opacity-80'}`}
+						>
+							{page}
+						</div>
+					);
+				})}
 			</div>
 		</div>
 	);

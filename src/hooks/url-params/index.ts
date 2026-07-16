@@ -14,6 +14,9 @@ export const URL_PARAM_KEYS = {
 	FILTER: {
 		TABLE: 'ftbl',
 	},
+	NAV: {
+		MOBILE: 'nmbl',
+	},
 };
 
 export function useBooleanQueryState(

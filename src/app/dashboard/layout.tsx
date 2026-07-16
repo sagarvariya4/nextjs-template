@@ -1,8 +1,10 @@
 // app/dashboard/layout.tsx
+
 'use client';
 
 import React from 'react';
 
+import { useNavMobileName } from '@/hooks/url-params/use-nav-mobile-name';
 import { useIsMobile } from '@/hooks/use-mobile';
 import { useIsMounted } from '@/hooks/use-mounted';
 import { DesktopLayout } from '@/components/layouts/desktop';
@@ -23,7 +25,8 @@ export default function DashboardLayout({
 	team,
 }: DashboardLayoutProps) {
 	const isMobile = useIsMobile();
-	const isMounted = useIsMounted(); // 🆕 Prevent SSR/Hydration mismatches by waiting for the client mount
+	const isMounted = useIsMounted();
+	const { navMobileNameName } = useNavMobileName();
 
 	if (!isMounted) {
 		return (
@@ -34,17 +37,21 @@ export default function DashboardLayout({
 	}
 
 	if (isMobile) {
-		const showAdvances = true;
-		return showAdvances ? (
-			<MobileLayoutAdvanced
-				analytics={analytics}
-				team={team}
-			>
-				{children}
-			</MobileLayoutAdvanced>
-		) : (
-			<MobileLayoutNormal> {children} </MobileLayoutNormal>
-		);
+		switch (navMobileNameName) {
+			case 'advanced':
+				return (
+					<MobileLayoutAdvanced
+						analytics={analytics}
+						team={team}
+					>
+						{children}
+					</MobileLayoutAdvanced>
+				);
+			case 'normal':
+				return <MobileLayoutNormal> {children} </MobileLayoutNormal>;
+			default:
+				return null;
+		}
 	}
 
 	return (
