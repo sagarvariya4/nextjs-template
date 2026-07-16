@@ -25,28 +25,38 @@ import {
 	ComboboxList,
 } from '@/components/ui/combobox';
 
+type NavMobileNameOption = {
+	label: string;
+	value: NavMobileName;
+};
+
 function SelectMobileNavName() {
 	const { listNavMobileNameName, navMobileNameName, setNavMobileName } =
 		useNavMobileName();
 
+	const items: NavMobileNameOption[] = listNavMobileNameName.map((name) => ({
+		label: titleCase(name),
+		value: name,
+	}));
+
 	return (
 		<Combobox
-			items={listNavMobileNameName}
-			value={titleCase(navMobileNameName)}
-			onValueChange={(value) =>
-				value && setNavMobileName(value.toLowerCase() as NavMobileName)
-			}
+			items={items}
+			itemToStringValue={(item) => item.label}
+			value={items.find((item) => item.value === navMobileNameName)}
+			onValueChange={(item) => item && setNavMobileName(item.value)}
 		>
 			<ComboboxInput placeholder="Select a view" />
+
 			<ComboboxContent>
 				<ComboboxEmpty>No items found.</ComboboxEmpty>
 				<ComboboxList>
 					{(item) => (
 						<ComboboxItem
-							key={item}
-							value={titleCase(item)}
+							key={item.value}
+							value={item}
 						>
-							{titleCase(item)}
+							{item.label}
 						</ComboboxItem>
 					)}
 				</ComboboxList>
